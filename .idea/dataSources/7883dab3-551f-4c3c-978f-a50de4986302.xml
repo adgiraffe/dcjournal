@@ -8,38 +8,67 @@
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="test"/>
-    <table id="5" parent="2" name="ge_useri_nfo"/>
-    <column id="6" parent="5" name="geUserNo">
+    <table id="5" parent="2" name="authority"/>
+    <table id="6" parent="2" name="ge_user_info"/>
+    <column id="7" parent="5" name="username">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="8" parent="5" name="authority_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="9" parent="6" name="geUserNo">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="7" parent="5" name="geUserId">
+    <column id="10" parent="6" name="geUserId">
       <Position>2</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="8" parent="5" name="geUserPw">
+    <column id="11" parent="6" name="geUserPw">
       <Position>3</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="9" parent="5" name="geUserAddr">
+    <column id="12" parent="6" name="geUserAddr">
       <Position>4</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="10" parent="5" name="geUserCellInfo">
+    <column id="13" parent="6" name="geUserCellInfo">
       <Position>5</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="11" parent="5" name="geUserEmail">
+    <column id="14" parent="6" name="geUserEmail">
       <Position>6</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="12" parent="5" name="geUserRegiDate">
+    <column id="15" parent="6" name="geUserRegiDate">
       <Position>7</Position>
       <DataType>date|0</DataType>
     </column>
-    <key id="13" parent="5" name="PRIMARY">
+    <column id="16" parent="6" name="isAccountNonExpired">
+      <Position>8</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="6" name="isAccountNonLocked">
+      <Position>9</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="6" name="isCredentialsNonExpired">
+      <Position>10</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="6" name="isEnabled">
+      <Position>11</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="20" parent="6" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>geUserNo</ColNames>
       <Primary>1</Primary>
