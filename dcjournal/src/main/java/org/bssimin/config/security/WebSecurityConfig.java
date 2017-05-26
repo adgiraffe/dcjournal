@@ -1,5 +1,6 @@
 package org.bssimin.config.security;
 
+import org.bssimin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,15 +19,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private DataSource db1DataSource;
+
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
+    @Autowired
+    UserService userService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().dataSource(db1DataSource);//jdbc데이터베이스 이용 인증
-        auth.inMemoryAuthentication().withUser("joo").password("1234").roles("ADMIN")
-                .and()
-                    .withUser("user").password("1234").roles("USER");
+        auth.userDetailsService(userService);
+//        auth.jdbcAuthentication().dataSource(db1DataSource)
+//                .usersByUsernameQuery("select geUserid,geUserPw, isEnabled from ge_user_info where geUserid='?'");//jdbc데이터베이스 이용 인증
+//        auth.inMemoryAuthentication().withUser("joo").password("1234").roles("ADMIN")
+//                .and()
+//                    .withUser("user").password("1234").roles("USER");
 
     }
 
@@ -53,12 +60,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/about").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/admin/**").hasAnyRole("admin")
+                .antMatchers("/user/**").hasAnyRole("user")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .usernameParameter("geUserId")
+                .passwordParameter("geUserPw")
                 .permitAll()
                 .and()
                 .logout()

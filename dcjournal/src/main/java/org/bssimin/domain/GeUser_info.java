@@ -17,12 +17,13 @@ public class GeUser_info implements UserDetails{
     private String geUserCellInfo;
     private String geUserEmail;
     private Date geUserRegiDate;
+
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonexpired;
     private boolean isEnabled;
-    private Collection<? extends GrantedAuthority> authorities;
 
+    private Collection<? extends GrantedAuthority> authorities;
 
     public int getGeUserNo() {
         return geUserNo;
@@ -106,17 +107,17 @@ public class GeUser_info implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return geUserId;
+        return geUserPw;
     }
 
     @Override
     public String getUsername() {
-        return geUserPw;
+        return geUserId;
     }
 
     @Override

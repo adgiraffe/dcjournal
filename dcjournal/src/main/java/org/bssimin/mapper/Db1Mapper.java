@@ -12,9 +12,12 @@ import java.util.List;
  */
 
 
-@Repository
+@Mapper
 public interface Db1Mapper {
-    public GeUser_info readGeUser(String username);
-    public List<String> readAuthority(String username);
+    public GeUser_info readGeUser(String geUserId);
+    public List<String> readAuthority(String geUserPw);
+
+
+
 
 }
