@@ -39,40 +39,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                    .antMatchers("/", "/home", "/about").permitAll()
-//                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
-//                    .antMatchers("/user/**").hasAnyRole("USER")
-//                    .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                    .loginPage("/login")//로그인페이지 경로 지정
-//                .permitAll()
-//                    .usernameParameter("geUserId")//폼로그인시 username 파라미터를 getUserId 파라미터로 받는다//
-//                    .passwordParameter("geUserPw")//폼로그인시 paswword 파라미터를 getUserId 파라미터로 받는다//
-//                 .and()
-//                    .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-//        http.csrf().disable();
-
-
-
-        http.csrf().disable()
+        http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/about").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("admin")
-                .antMatchers("/user/**").hasAnyRole("user")
-                .anyRequest().authenticated()
+                    .antMatchers("/", "/home", "/about").permitAll()
+                    .antMatchers("/admin/**").hasAnyAuthority("admin")
+                    .antMatchers("/user/**").hasAnyAuthority("user")
+                    .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .usernameParameter("geUserId")
-                .passwordParameter("geUserPw")
+                    .loginPage("/login")//로그인페이지 경로 지정
                 .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                    .usernameParameter("geUserId")//폼로그인시 username 파라미터를 getUserId 파라미터로 받는다//
+                    .passwordParameter("geUserPw")//폼로그인시 paswword 파라미터를 getUserId 파라미터로 받는다//
+                 .and()
+                    .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+        http.csrf().disable();
+
+
+//
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/", "/home", "/about").permitAll()
+//                .antMatchers("/admin/**").hasAnyRole("admin")
+//                .antMatchers("/user/**").hasAnyRole("user")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                    .loginPage("/login")
+//                    .usernameParameter("geUserId")
+//                    .passwordParameter("geUserPw") .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .and()
+//                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 }
