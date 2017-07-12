@@ -6,19 +6,19 @@ tinymce.init({
     plugins: "autolink autosave code link media image table textcolor autoresize",
     // image_title: true,
     toorbar: 'undo redo | styleselect | forecolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link media custom_image code ',
-    setup: function(editor) {
-        editor.addButton('custom_image', {
-            title: '이미지삽입',
-            icon: 'image',
-            onclick: function() {
-                window.open("POPUP_URL","tinymcePop","width=400,height=350");
-            }
-        });
-    },
-    // paste_data_images:true,
-    // images_upload_url: 'fileUploadT',
-    // images_upload_base_path:'../../images',
-    // file_picker_types: 'image',
+    // setup: function(editor) {
+    //     editor.addButton('custom_image', {
+    //         title: '이미지삽입',
+    //         icon: 'image',
+    //         onclick: function() {
+    //             window.open("POPUP_URL","tinymcePop","width=400,height=350");
+    //         }
+    //     });
+    // },
+    paste_data_images:true,
+    images_upload_url: 'fileUploadT',
+    images_upload_base_path:'../../images',
+    file_picker_types: 'image',
     // file_browser_callback_types: 'file image media',
     // file_browser_callback:'myFileBrowser'
 
@@ -80,45 +80,45 @@ tinymce.init({
 });
 
 
-function myFileBrowser (field_name, url, type, win) {
-
-    alert("Field_Name: " + field_name + "nURL: " + url + "nType: " + type + "nWin: " + win);
-    // debug/testing
-
-    /* If you work with sessions in PHP and your client doesn't accept cookies you might need to carry
-     the session name and session ID in the request string (can look like this: "?PHPSESSID=88p0n70s9dsknra96qhuk6etm5").
-     These lines of code extract the necessary parameters and add them back to the filebrowser URL again. */
-
-    var cmsURL = window.location.toString();    // script URL - use an absolute path!
-    if (cmsURL.indexOf("?") < 0) {
-        //add the type as the only query parameter
-        cmsURL = cmsURL + "?type=" + type;
-    }
-    else {
-        //add the type as an additional query parameter
-        // (PHP session ID is now included if there is one at all)
-        cmsURL = cmsURL + "&type=" + type;
-    }
-
-    tinyMCE.activeEditor.windowManager.open({
-        file : cmsURL,
-        title : 'My File Browser',
-        width : 420,  // Your dimensions may differ - toy around with them!
-        height : 400,
-        resizable : "yes",
-        inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
-        close_previous : "no"
-    }, {
-        window : win,
-        input : field_name
-    });
-    return false;
-}
-
-
-
-tinymce.activeEditor.uploadImages(function(success) {
-    $.post('ajax/upLoadContents', tinymce.activeEditor.getContent()).done(function() {
-        console.log("Uploaded images and posted content as an ajax request.");
-    });
-});
+// function myFileBrowser (field_name, url, type, win) {
+//
+//     alert("Field_Name: " + field_name + "nURL: " + url + "nType: " + type + "nWin: " + win);
+//     // debug/testing
+//
+//     /* If you work with sessions in PHP and your client doesn't accept cookies you might need to carry
+//      the session name and session ID in the request string (can look like this: "?PHPSESSID=88p0n70s9dsknra96qhuk6etm5").
+//      These lines of code extract the necessary parameters and add them back to the filebrowser URL again. */
+//
+//     var cmsURL = window.location.toString();    // script URL - use an absolute path!
+//     if (cmsURL.indexOf("?") < 0) {
+//         //add the type as the only query parameter
+//         cmsURL = cmsURL + "?type=" + type;
+//     }
+//     else {
+//         //add the type as an additional query parameter
+//         // (PHP session ID is now included if there is one at all)
+//         cmsURL = cmsURL + "&type=" + type;
+//     }
+//
+//     tinyMCE.activeEditor.windowManager.open({
+//         file : cmsURL,
+//         title : 'My File Browser',
+//         width : 420,  // Your dimensions may differ - toy around with them!
+//         height : 400,
+//         resizable : "yes",
+//         inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
+//         close_previous : "no"
+//     }, {
+//         window : win,
+//         input : field_name
+//     });
+//     return false;
+// }
+//
+//
+//
+// tinymce.activeEditor.uploadImages(function(success) {
+//     $.post('ajax/upLoadContents', tinymce.activeEditor.getContent()).done(function() {
+//         console.log("Uploaded images and posted content as an ajax request.");
+//     });
+// });

@@ -4,10 +4,68 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"/>
-    <script src="../../js/fileBrowser/fileBrowser.js"/>
+    <!--<script src="../../js/fileBrowser/fileBrowser.js"/>-->
+
+    <style>
+        .fileDrop{
+            width: 100%;
+            height: 200px;
+            border: 1px dotted blue;
+        }
+
+        small{
+            margin-left: 3px;
+            font-weight: bold;
+            color: gray;
+        }
+
+    </style>
+
 
 </head>
 <body>
-        <input id="imageLoader1" type="file" accept="image/*" onchange="loadImage();"/>
+        <h3>Ajax File Upload</h3>
+        <div class="fileDrop"></div>
+        <script>
+            $(".fileDrop").on("dragenter dragover",function (event) {
+                event.preventDefault();
+            });
+
+            $(".fileDrop").on("drop",function (event) {
+                event.preventDefault();
+                var files=event.originalEvent.dataTransfer.files;
+                var file=files[0];
+                console.log(file);
+
+                var formData=new FormData();
+                formData.append("file",file);
+
+                $.ajax({
+                    url:'/uploadForm',
+                    data: formData,
+                    dataYpe:'text',
+                    processData:false,
+                    contentType:false,
+                    type:'POST',
+                    success:function (data) {
+                        alert(data);
+                    }
+                });
+            });
+        </script>
+
+
+
+
+
+        <div class="uploadedList"></div>
+        <form id="form1" action="uploadForm" method="post"
+        enctype="multipart/form-data">
+            <!--<input id="imageLoader1" type="file" name="file" accept="image/*" onchange="loadImage();"/>
+            -->
+            <input type="file" name="file"/>
+            <input type="submit"/>
+        </form>
+
 </body>
 </html>
