@@ -5,6 +5,29 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"/>
     <!--<script src="../../js/fileBrowser/fileBrowser.js"/>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"/>
+
+
+    <script id="template" type="text/x-handlebars-template">
+        <li>
+            <span class="mailbox-attachment-icon has-img">
+                <img src="{{imgSrc}}" alt="Attachment" />
+            </span>
+            <div class="mailbox-attachment-info">
+                <a href="{{getLink}}" class="mailbox-attachment-name">
+                    {{fileName}}
+                </a>
+
+                <a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
+                    <i class="fa fa-fw fa-remove"></i>
+                </a>
+            </div>
+        </li>
+    </script>
+
+
+
+
 
     <style>
         .fileDrop{
@@ -21,11 +44,21 @@
 
     </style>
 
+    <script src="../../js/fileBrowser/uploadJS.js"/>
+
 
 </head>
 <body>
         <h3>Ajax File Upload</h3>
-        <div class="fileDrop"></div>
+        <div>
+            <div class="fileDrop"></div>
+        </div>
+
+        <ul class="uploadedList">
+        </ul>
+        <!--<div class="uploadedList"></div>-->
+
+
         <script>
             $(".fileDrop").on("dragenter dragover",function (event) {
                 event.preventDefault();
@@ -35,7 +68,7 @@
                 event.preventDefault();
                 var files=event.originalEvent.dataTransfer.files;
                 var file=files[0];
-                console.log(file);
+//                console.log(file);
 
                 var formData=new FormData();
                 formData.append("file",file);
@@ -48,17 +81,57 @@
                     contentType:false,
                     type:'POST',
                     success:function (data) {
-                        alert(data);
+
+                        var fileInfo=getFileInfo(data);
+
+                        console.log(data);
+                        console.log(checkImageType(data));
+
+                        if (checkImageType(data)){
+                            str='<div>'
+                                +'<a href="displayFile?fileName='
+                                +getImageLink(data)
+                                +'">'
+                                +'<img src="displayFile?fileName='
+                                +data
+                                +'"/>'
+                                + '</a><small data-src="'
+                                + data
+                                + '">X</small></div>';
+                        }else {
+                            str='<div><a href="displayFile?filename='
+                                +data+'">'
+                                +getOriginalName(data)
+                                +'</a><small data-src="'
+                                + data
+                                +'">X</small></div>';
+                        }
+
+                        $(".uploadedList").append(str);
                     }
+                });
+            });
+            $(".uploadedList").on("click","small",function (event) {
+                var that=$(this);
+
+                $.ajax({
+                    url:'/deleteFile',
+                    type:'POST',
+                    data:{fileName : $(this).attr("data-src")},
+                    dataType:'text',
+                    success:function (result) {
+                        if (result=='deleted'){
+
+                            alert("deleted");
+                            that.parent('div').remove();
+                        }
+                    }
+
                 });
             });
         </script>
 
 
-
-
-
-        <div class="uploadedList"></div>
         <form id="form1" action="uploadForm" method="post"
         enctype="multipart/form-data">
             <!--<input id="imageLoader1" type="file" name="file" accept="image/*" onchange="loadImage();"/>
@@ -66,6 +139,7 @@
             <input type="file" name="file"/>
             <input type="submit"/>
         </form>
+
 
 </body>
 </html>

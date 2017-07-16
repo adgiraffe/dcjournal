@@ -3,7 +3,7 @@ package org.bssimin.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.bssimin.domain.GeUser_info;
-import org.springframework.stereotype.Repository;
+import org.bssimin.domain.ImageVO.Image_info;
 
 import java.util.List;
 
@@ -16,8 +16,6 @@ import java.util.List;
 public interface Db1Mapper {
     public GeUser_info readGeUser(String geUserId);
     public List<String> readAuthority(String geUserPw);
-
-
-
+//    public void regiImage(Image_info info);
 
 }
