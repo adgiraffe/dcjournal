@@ -6,7 +6,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output-test url="file://$MODULE_DIR$/../../dcjournal/build/classes/test" />
+    <output-test url="file://$MODULE_DIR$/../../dcjournal/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../dcjournal/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../dcjournal/src/test/java" isTestSource="true" />

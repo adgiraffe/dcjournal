@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../../css/imageList.css"/>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"/>
     <!--<script src="../../js/fileBrowser/fileBrowser.js"/>-->
+    <script src="../../js/fileBrowser/dragAndDrop.js"/>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"/>
-
-
     <script id="template" type="text/x-handlebars-template">
         <li>
             <span class="mailbox-attachment-icon has-img">
@@ -27,9 +28,10 @@
 
 
 
-
-
     <style>
+
+
+
         .fileDrop{
             width: 100%;
             height: 200px;
@@ -44,101 +46,30 @@
 
     </style>
 
-    <script src="../../js/fileBrowser/uploadJS.js"/>
 
 
 </head>
 <body>
+
+<form id="form1" action="uploadForm" method="post"
+      enctype="multipart/form-data">
+    <!--<input id="imageLoader1" type="file" name="file" accept="image/*" onchange="loadImage();"/>
+    -->
+    <input type="file" name="file"/>
+    <input type="submit"/>
+</form>
         <h3>Ajax File Upload</h3>
         <div>
             <div class="fileDrop"></div>
         </div>
 
+        <!--<ul class="uploadedList">-->
+        <!--</ul>-->
+
         <ul class="uploadedList">
         </ul>
-        <!--<div class="uploadedList"></div>-->
 
-
-        <script>
-            $(".fileDrop").on("dragenter dragover",function (event) {
-                event.preventDefault();
-            });
-
-            $(".fileDrop").on("drop",function (event) {
-                event.preventDefault();
-                var files=event.originalEvent.dataTransfer.files;
-                var file=files[0];
-//                console.log(file);
-
-                var formData=new FormData();
-                formData.append("file",file);
-
-                $.ajax({
-                    url:'/uploadForm',
-                    data: formData,
-                    dataYpe:'text',
-                    processData:false,
-                    contentType:false,
-                    type:'POST',
-                    success:function (data) {
-
-                        var fileInfo=getFileInfo(data);
-
-                        console.log(data);
-                        console.log(checkImageType(data));
-
-                        if (checkImageType(data)){
-                            str='<div>'
-                                +'<a href="displayFile?fileName='
-                                +getImageLink(data)
-                                +'">'
-                                +'<img src="displayFile?fileName='
-                                +data
-                                +'"/>'
-                                + '</a><small data-src="'
-                                + data
-                                + '">X</small></div>';
-                        }else {
-                            str='<div><a href="displayFile?filename='
-                                +data+'">'
-                                +getOriginalName(data)
-                                +'</a><small data-src="'
-                                + data
-                                +'">X</small></div>';
-                        }
-
-                        $(".uploadedList").append(str);
-                    }
-                });
-            });
-            $(".uploadedList").on("click","small",function (event) {
-                var that=$(this);
-
-                $.ajax({
-                    url:'/deleteFile',
-                    type:'POST',
-                    data:{fileName : $(this).attr("data-src")},
-                    dataType:'text',
-                    success:function (result) {
-                        if (result=='deleted'){
-
-                            alert("deleted");
-                            that.parent('div').remove();
-                        }
-                    }
-
-                });
-            });
-        </script>
-
-
-        <form id="form1" action="uploadForm" method="post"
-        enctype="multipart/form-data">
-            <!--<input id="imageLoader1" type="file" name="file" accept="image/*" onchange="loadImage();"/>
-            -->
-            <input type="file" name="file"/>
-            <input type="submit"/>
-        </form>
+        <script src="../../js/fileBrowser/uploadJS.js"/>
 
 
 </body>
