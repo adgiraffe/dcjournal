@@ -4,29 +4,7 @@
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="../../css/imageList.css"/>
     <title>Title</title>
-    <script src="https://code.jquery.com/jquery-1.11.3.js"/>
     <!--<script src="../../js/fileBrowser/fileBrowser.js"/>-->
-    <script src="../../js/fileBrowser/dragAndDrop.js"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"/>
-    <script id="template" type="text/x-handlebars-template">
-        <li>
-            <span class="mailbox-attachment-icon has-img">
-                <img src="{{imgSrc}}" alt="Attachment" />
-            </span>
-            <div class="mailbox-attachment-info">
-                <a href="{{getLink}}" class="mailbox-attachment-name">
-                    {{fileName}}
-                </a>
-
-                <a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
-                    <i class="fa fa-fw fa-remove"></i>
-                </a>
-            </div>
-        </li>
-    </script>
-
-
 
     <style>
 
@@ -69,8 +47,33 @@
         <ul class="uploadedList">
         </ul>
 
-        <script src="../../js/fileBrowser/uploadJS.js"/>
 
+        <button id="insertImage" onclick="getImage()">이미지 삽입</button>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.js"/>
+
+    <script src="../../js/fileBrowser/uploadJS.js"/>
+    <script src="../../js/fileBrowser/selectAble.js"/>
+
+    <script src="../../js/fileBrowser/dragAndDrop.js"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"/>
+<script id="template" type="text/x-handlebars-template">
+    <li>
+            <span class="mailbox-attachment-icon has-img">
+                <img src="{{imgSrc}}" alt="Attachment" />
+            </span>
+        <div class="mailbox-attachment-info">
+            <a href="{{getLink}}" class="mailbox-attachment-name">
+                {{fileName}}
+            </a>
+
+            <a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">
+                <i class="fa fa-fw fa-remove"></i>
+            </a>
+        </div>
+    </li>
+</script>
 
 </body>
 </html>
