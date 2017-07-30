@@ -22,17 +22,27 @@ function getImage() {
 }
 
 function sendNumList() {
+    getImage();
     var numList=[];
     numList=getImage();
+    var inoList={};
+    console.log(numList);
+    for (var i=0; i<numList.length; i++){
+        var ino=numList[i];
+        var numName="ino"+i;
+        inoList[numName]=ino;
+    }
+   var jSonL=JSON.stringify(inoList);
+    console.log(jSonL);
     $.ajax({
-        url:'/selectOneNum',
-        data:numList,
-        dataType:'int',
+        url:'/pathPerNo',
+        data:jSonL,
+        dataType:'json',
         processData:false,
-        contentType:false,
-        type:'POST',
+        contentType : 'application/json',
+        method:'POST',
         success:function (rliList) {
-            
+            console.log(rliList);
         }
     })
 }

@@ -6,17 +6,17 @@ import java.util.Date;
  * Created by joo on 2017. 7. 13..
  */
 public class Image_info {
-    private String ino;
+    private int ino;
     private String imagePath;
     private String thumnailPath;
     private String imageInfo;
     private Date regdate;
 
-    public String getIno() {
+    public int getIno() {
         return ino;
     }
 
-    public void setIno(String ino) {
+    public void setIno(int ino) {
         this.ino = ino;
     }
 

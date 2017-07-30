@@ -5,7 +5,7 @@ import org.bssimin.domain.ImageVO.Image_info;
 import org.bssimin.service.imageService.ImageService;
 import org.bssimin.util.MediaUtils;
 import org.bssimin.util.UploadFileUtils;
-import org.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by joo on 2017. 7. 12..
@@ -75,15 +76,18 @@ public class UploadController {
     public ResponseEntity <List<Image_info>> uploadAjax(List<MultipartFile> files) throws Exception {
 
 
-        List <Image_info> thumPath=new ArrayList<>();
+        List <Image_info> infoList=new ArrayList<>();
 
         ResponseEntity<List <Image_info>> thumList=null;
         for (MultipartFile file:files){
             Image_info iInfo = UploadFileUtils.uploadFile(canonUploadPath, file.getOriginalFilename(), file.getBytes());
-            thumPath.add(iInfo);
             imageService.addImage(iInfo);
+            String thumPath=iInfo.getThumnailPath();
+            int ino=imageService.getImageNo(thumPath);
+            iInfo.setIno(ino);
+            infoList.add(iInfo);
         }
-        thumList=new ResponseEntity<>(thumPath,HttpStatus.CREATED);
+        thumList=new ResponseEntity<>(infoList,HttpStatus.CREATED);
         return thumList;
     }
 
@@ -168,8 +172,9 @@ public class UploadController {
     }
 
 
+
     @ResponseBody
-    @RequestMapping(value = "/selectImageList", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectImageList", method = RequestMethod.GET,produces = "application/json")
     public ResponseEntity<List<Image_info>> allImageSelect() throws Exception {
 
         ResponseEntity<List<Image_info>> imageList = null;
@@ -184,18 +189,30 @@ public class UploadController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/pathPerNo",method = RequestMethod.GET)
-    public ResponseEntity<List<String>> pathPno(List<Integer> inoList) throws Exception{
-        List<Integer> iList=inoList;
+    @RequestMapping(value = "/pathPerNo",method = RequestMethod.POST)
+    public ResponseEntity<List<String>> pathPno(@RequestBody Map<String,Integer> inoList)throws Exception{
+        System.out.println(inoList);
+        int ino=0;
+        List<String> pathList=new ArrayList<>();
         ResponseEntity<List<String>> rliList=null;
-        List<String> sList=new ArrayList<>();
-        for (int i: iList){
-            String path=imageService.selectPathImage(i);
-            System.out.print(path);
-            sList.add(path);
+        for (int i=0;i<inoList.size();i++){
+            ino=inoList.get("ino"+i);
+            System.out.println(ino);
+            String imagePath=imageService.selectPathImage(ino);
+            pathList.add(imagePath);
         }
-        System.out.print("/pathPerNo : "+sList);
-        rliList=new ResponseEntity<>(sList,HttpStatus.OK);
+        rliList=new ResponseEntity<>(pathList,HttpStatus.OK);
+//        List<Integer> iList=inoList;
+//        ResponseEntity<List<String>> rliList=null;
+//        List<String> sList=new ArrayList<>();
+//        for (int i: iList){
+//            String path=imageService.selectPathImage(i);
+//            System.out.print(path);
+//            sList.add(path);
+//        }
+//        System.out.print("/pathPerNo : "+sList);
+//        rliList=new ResponseEntity<>(sList,HttpStatus.OK);
+//        return rliList;
         return rliList;
     }
 

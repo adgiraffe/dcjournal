@@ -39,12 +39,13 @@
 function multiFileAdd(event) {
     var files=[];
     files=event.originalEvent.dataTransfer.files;
-    console.log(files);
+    // console.log(files);
     var formData=new FormData();
 
     for(var i=0;i<files.length;i++){
         var str='file'+i.toString();
         formData.append('files',files[i]);
+        //formData.append로 추가시 key값인 'files'이름으로 서버측 인자값이름으로 받아야 한다
 
     }
 
@@ -59,7 +60,7 @@ function multiFileAdd(event) {
         success:function (thumnailList) {
 
 
-            var nName=[];
+            // var nName=[];
             //
             // console.log(nName);
 
@@ -68,12 +69,9 @@ function multiFileAdd(event) {
             data=thumnailList;
             var fileInfo=null;
 
-            console.log(data);
-            console.log(data.length);
             for(var i=0; i <data.length;i++){
                 fileInfo=getFileInfo(data[i].thumnailPath);
-
-                nName=getiNum(data[i].thumnailPath);
+                // nName=getiNum(data[i].thumnailPath);
                 if (checkImageType(data[i].thumnailPath)){
                     str='<li>'
                         // +'<a href="displayFile?fileName='
@@ -82,7 +80,7 @@ function multiFileAdd(event) {
                         +'<img src="displayFile?fileName='
                         +data[i].thumnailPath
                         +'" name="'
-                        +nName
+                        +data[i].ino
                         +'"/>'
                         // + '</a>' +
                         +'<small data-src="'
