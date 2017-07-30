@@ -57,14 +57,17 @@ tinymce.init({
 
 
 function openExploer() {
-    var fileBrowser = window.open("/fileBrowser", "tinymcePop", "width=400,height=350");
-    var file=new FormData(fileBrowser.loadImage());
-    alert(file);
-    file.onload=function () {
-        var fileName=file.files[0].name;
-        alert(fileName);
-    }
+    var fileBrowser = window.open("/fileBrowser", "tinymcePop", "width=400, height=350");
 }
+function sendTinyMceContent() {
+    var tinyContent=tinymce.get('my_editor');
+    console.log(tinyContent.getBody());
+    console.log(tinyContent.getContent());
+
+
+
+}
+
 
 // function setImageData(file) {
 //     var nfile=file;

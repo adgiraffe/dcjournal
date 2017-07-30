@@ -43,6 +43,14 @@ function sendNumList() {
         method:'POST',
         success:function (rliList) {
             console.log(rliList);
+            for(var i=0;i<rliList.length;i++){
+                var path=rliList[i];
+                var htmlTag='<img src="displayFile?fileName='
+                    +path
+                    +'"/>';
+                console.log("경로 : "+path)
+                opener.tinymce.execCommand("mceInsertContent",'true ',htmlTag);
+            }
         }
     })
 }
