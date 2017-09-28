@@ -1,0 +1,28 @@
+html,body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+.wrap{
+    height: 100%;
+    position:relative;
+}
+
+.basic{
+    height: 100%;
+    position:relative;
+}
+
+section{
+    height: 100%;
+    weight:100%;
+    position: relative;
+    overflow: hidden;
+}
+
+button{
+    position:relative;
+}
+

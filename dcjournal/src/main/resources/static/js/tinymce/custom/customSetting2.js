@@ -9,6 +9,20 @@ tinymce.init({
     menubar:false,
     plugins: "autolink autosave code link media image table textcolor autoresize",
     toolbar: "undo redo | styleselect | forecolor bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link media custom_image code ",
+    // forced_root_block_attrs: {
+    //     'class': 'myclass',
+    //     'data-something': 'my data'
+    // },
+    protect: [
+        /\<\/?(if|endif)\>/g,  // Protect <if> & </endif>
+        /\<xsl\:[^>]+\>/g,  // Protect <xsl:...>
+        /<\?php.*?\?>/g,  // Protect php code
+        /$.ajax/g,
+        /<=onclick+>/g,
+    ],
+
+
+
     setup: function(editor) {
         // var inp = $('<input id="tinymce-uploader" type="file" name="pic" accept="image/*" style="display:none">');
         // $(editor.getElement()).parent().append(inp);
@@ -55,27 +69,3 @@ tinymce.init({
     }
 });
 
-
-function openExploer() {
-    var fileBrowser = window.open("/fileBrowser", "tinymcePop", "width=400, height=350");
-}
-function sendTinyMceContent() {
-    var tinyContent=tinymce.get('my_editor');
-    console.log(tinyContent.getBody());
-    console.log(tinyContent.getContent());
-
-
-
-}
-
-
-// function setImageData(file) {
-//     var nfile=file;
-//     var fileName=nfile.files[0].name;
-//     var fileSize=nfile.files[0].size;
-//     alert(fileName);
-//     alert(fileSize);
-//     var dataFile=new FormData();
-//     dataFile.append('files',file.files[0]);
-//     return fileName;
-// }

@@ -3,11 +3,11 @@ package org.bssimin.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.bssimin.domain.GeUser_info;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,4 +32,29 @@ public class UserDaoImpl implements UserDAO{
     public List <GrantedAuthority> readAuthority(String geUserId) throws Exception {
         return session.selectList(namespace+".readAuthority",geUserId);
     }
+
+    @Override
+    public void createUser(GeUser_info user) {
+
+        session.insert(namespace+".createUser",user);
+    }
+
+    @Override
+    public void createAuthority(GeUser_info user) {
+        session.insert(namespace+".createAuthority",user);
+    }
+
+    @Override
+    public void deleteUser(String geUserId) {
+        session.delete(namespace+".deleteUser",geUserId); }
+
+    @Override
+    public void deleteAuthority(String geUserId) {
+        System.out.println("1");
+        System.out.println(geUserId);
+        session.delete(namespace+".deleteAuthority",geUserId);
+
+    }
+
+
 }

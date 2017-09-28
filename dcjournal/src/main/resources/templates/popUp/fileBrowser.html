@@ -1,7 +1,10 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8"/>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" type="text/css" href="../../css/imageList.css"/>
     <title>Title</title>
     <!--<script src="../../js/fileBrowser/fileBrowser.js"/>-->

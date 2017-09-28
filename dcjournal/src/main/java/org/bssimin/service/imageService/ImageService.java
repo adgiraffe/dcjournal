@@ -1,6 +1,7 @@
 package org.bssimin.service.imageService;
 
 import org.bssimin.domain.ImageVO.Image_info;
+import org.bssimin.domain.mceContens.MceContentDTO;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface ImageService {
     public List<Image_info> allSelectImage() throws Exception;
     public String selectPathImage(int ino) throws Exception;
     public int getImageNo(String fPath) throws Exception;
+    public void addContent(MceContentDTO contentDTO) throws Exception;
 }

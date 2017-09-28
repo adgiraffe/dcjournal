@@ -2,6 +2,7 @@ package org.bssimin.service.imageService;
 
 import org.bssimin.dao.image.ImageDAO;
 import org.bssimin.domain.ImageVO.Image_info;
+import org.bssimin.domain.mceContens.MceContentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,10 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public int getImageNo(String fPath) throws Exception {
         return imagedao.selectIno(fPath);
+    }
+
+    @Override
+    public void addContent(MceContentDTO contentDTO) throws Exception {
+        imagedao.regiContent(contentDTO);
     }
 }

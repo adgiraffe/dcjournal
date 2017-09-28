@@ -22,5 +22,9 @@
     <select id="getIno" resultType="int" parameterType="String">
         SELECT ino FROM attachedFile WHERE thumnailPath=#{fPath}
     </select>
+
+    <insert id="addContent" parameterType="org.bssimin.domain.mceContens.MceContentDTO">
+        insert into mceContents (referUser, title, content) values (#{createdUser},#{title},#{content});
+    </insert>
 </mapper>
 

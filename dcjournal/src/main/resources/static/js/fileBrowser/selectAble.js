@@ -22,6 +22,10 @@ function getImage() {
 }
 
 function sendNumList() {
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
     getImage();
     var numList=[];
     numList=getImage();
@@ -37,10 +41,14 @@ function sendNumList() {
     $.ajax({
         url:'/pathPerNo',
         data:jSonL,
+
         dataType:'json',
         processData:false,
         contentType : 'application/json',
         method:'POST',
+        beforeSend:function (xhr) {
+            xhr.setRequestHeader(header,token);
+        },
         success:function (rliList) {
             console.log(rliList);
             for(var i=0;i<rliList.length;i++){

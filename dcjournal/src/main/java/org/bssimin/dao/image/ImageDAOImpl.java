@@ -2,6 +2,7 @@ package org.bssimin.dao.image;
 
 import org.apache.ibatis.session.SqlSession;
 import org.bssimin.domain.ImageVO.Image_info;
+import org.bssimin.domain.mceContens.MceContentDTO;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
@@ -44,5 +45,10 @@ public class ImageDAOImpl implements ImageDAO {
     @Override
     public int selectIno(String fPath) throws Exception {
         return session.selectOne(imageNamespace+".getIno",fPath);
+    }
+
+    @Override
+    public void regiContent(MceContentDTO contentDTO) throws Exception {
+        session.selectOne(imageNamespace+".addContent",contentDTO);
     }
 }

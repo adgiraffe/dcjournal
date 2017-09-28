@@ -1,5 +1,6 @@
 package org.bssimin.domain;
 
+import org.apache.catalina.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,9 @@ import java.util.Date;
 /**
  * Created by joo on 2017. 5. 22..
  */
+
+//UserDetailsService에서 처리한 로직을 UserDetails에 담는다
+
 public class GeUser_info implements UserDetails{
     private int geUserNo;
     private String geUserId;
@@ -17,12 +21,10 @@ public class GeUser_info implements UserDetails{
     private String geUserCellInfo;
     private String geUserEmail;
     private Date geUserRegiDate;
-
     private boolean isAccountNonExpired;
     private boolean isAccountNonLocked;
-    private boolean isCredentialsNonexpired;
+    private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-
     private Collection<? extends GrantedAuthority> authorities;
 
     public int getGeUserNo() {
@@ -89,12 +91,8 @@ public class GeUser_info implements UserDetails{
         isAccountNonLocked = accountNonLocked;
     }
 
-    public boolean isCredentialsNonexpired() {
-        return isCredentialsNonexpired;
-    }
-
-    public void setCredentialsNonexpired(boolean credentialsNonexpired) {
-        isCredentialsNonexpired = credentialsNonexpired;
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
     }
 
     public void setEnabled(boolean enabled) {
@@ -132,11 +130,12 @@ public class GeUser_info implements UserDetails{
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isCredentialsNonexpired;
+        return isCredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
         return isEnabled;
     }
+
 }

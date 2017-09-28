@@ -14,12 +14,17 @@
 
     $(".uploadedList").on("click","small",function (event) {
         var that=$(this);
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
 
         $.ajax({
             url:'/deleteFile',
             type:'POST',
             data:{fileName : $(this).attr("data-src")},
             dataType:'text',
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader(header,token);
+            },
             success:function (result) {
                 if (result=='deleted'){
 
@@ -37,6 +42,9 @@
 
 
 function multiFileAdd(event) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
     var files=[];
     files=event.originalEvent.dataTransfer.files;
     // console.log(files);
@@ -57,6 +65,9 @@ function multiFileAdd(event) {
         dataType:'json',
         //json으로 안하고 text로 설정하면 서버에서 돌려 받는 값이 문자로 변경된다 json으로 받아야 .length메소드가 배열갯수를 구함
         type:'POST',
+        beforeSend:function (xhr) {
+            xhr.setRequestHeader(header,token);
+        },
         success:function (thumnailList) {
 
 
@@ -103,10 +114,19 @@ function selectImageList() {
 
         var imageArray=[];
         var data=new Array();
-        $.ajax({
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+
+
+    $.ajax({
             url:'/selectImageList',
             dataType:'json',
             // async: false,
+            beforeSend:function (xhr) {
+                xhr.setRequestHeader(header,token);
+            },
             success:function (imageList) {
                 imageArray=imageList;
                 console.log(imageList);

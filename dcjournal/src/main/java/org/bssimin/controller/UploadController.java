@@ -2,6 +2,7 @@ package org.bssimin.controller;
 
 import org.apache.commons.io.IOUtils;
 import org.bssimin.domain.ImageVO.Image_info;
+import org.bssimin.domain.mceContens.MceContentDTO;
 import org.bssimin.service.imageService.ImageService;
 import org.bssimin.util.MediaUtils;
 import org.bssimin.util.UploadFileUtils;
@@ -12,14 +13,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +34,7 @@ import java.util.Map;
  * Created by joo on 2017. 7. 12..
  */
 
-
+@EnableWebSecurity
 @Controller
 public class UploadController {
     private static String canonUploadPath = "dcjournal/src/main/resources/static/cImage";
@@ -231,5 +237,19 @@ public class UploadController {
 
         return returnIntList;
     }
+
+
+    @RequestMapping(value = "/insertMceContent",method =RequestMethod.POST)
+
+        public String insertContent(Principal principal,@ModelAttribute("content") MceContentDTO contentDTO)throws Exception{
+        contentDTO.setCreatedUser(principal.getName());
+        imageService.addContent(contentDTO);
+        return "/frameBody/home";
+
+    }
+
+
+
+
 
 }
