@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.bssimin.mybatis.mapper.imageVOMapper.xml">
+<mapper namespace="org.ptlu.join.mybatis.mapper.imageVOMapper.xml">
 
-  <insert id="regiImage" parameterType="String">
-      insert INTO attachedFile(imagePath, thumnailPath) VALUES (#{imagePath},#{thumnailPath})
-  </insert>
+    <insert id="regiImage" parameterType="String">
+        insert INTO attachedFile(imagePath, thumnailPath) VALUES (#{imagePath},#{thumnailPath})
+    </insert>
 
     <delete id="deleImage" parameterType="String">
         DELETE FROM attachedFile WHERE imagePath=#{fPath}
     </delete>
 
-    <select id="imageAllSelect" resultType="org.bssimin.domain.ImageVO.Image_info">
+    <select id="imageAllSelect" resultType="org.ptlu.join.domain.ImageVO.Image_info">
         SELECT * FROM attachedFile LIMIT 0, 10
     </select>
 
@@ -23,8 +23,7 @@
         SELECT ino FROM attachedFile WHERE thumnailPath=#{fPath}
     </select>
 
-    <insert id="addContent" parameterType="org.bssimin.domain.mceContens.MceContentDTO">
+    <insert id="addContent" parameterType="org.ptlu.join.domain.mceContens.MceContentDTO">
         insert into mceContents (referUser, title, content) values (#{createdUser},#{title},#{content});
     </insert>
 </mapper>
-
